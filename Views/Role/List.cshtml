@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewBag.Title = "Roles List";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <h2 class="mb-0">Roles List</h2>
+
+    <a asp-action="Create" asp-controller="Role" class="btn btn-info">
+        + Create Role
+    </a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Role Name</th>
+            <th>Normalize Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            
+            @foreach (var role in Model)
+            {
+                int count = 1;
+                <tr>
+                    <td>@count</td>
+                    <td>@role.Name</td>
+                    <td>@role.NormalizedName</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = role.Id }, new { @class = "btn btn-primary btn-sm" }) 
+                        @Html.ActionLink("Delete", "Delete", new { id = role.Id }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+         else{
+                <tr>
+                    <td colspan="4" class="text-center align-middle py-4">
+                        <span class="text-muted fw-bold">Role not found</span>
+                    </td>
+                </tr>
+
+                }       
+
+    </tbody>
+</table>

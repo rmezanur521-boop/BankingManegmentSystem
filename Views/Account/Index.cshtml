@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BankingManegmentSystem.Models.Account>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="page-wrapper" style="min-height:100vh; background-color:#f8f9fa;">
+
+    <div class="container py-5">
+        <h1 class="text-center mb-4 fw-semibold">All Accounts</h1>
+
+        <!-- বাটন গ্রুপ -->
+        <div class="d-flex justify-content-between mb-4">
+            <a asp-action="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Create New
+            </a>
+
+            <a asp-action="Index" asp-controller="Transaction" class="btn btn-outline-primary">
+                <i class="bi bi-cash-stack"></i> Transaction
+            </a>
+        </div>
+
+        <table class="table table-striped table-hover shadow-sm rounded">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AccountName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AccountNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Balance)
+                    </th>
+                    <th>
+
+                        @Html.DisplayNameFor(model => model.Status)
+
+                    </th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AccountName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AccountNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Balance)
+                        </td>
+                        <td>
+                            @await Html.PartialAsync("_AccountStatus", item.Status)
+                        </td>
+                        <td>
+                            <a asp-action="Deposit" asp-route-id="@item.Id">Deposit</a> |
+                            <a asp-action="Withdraw" asp-route-id="@item.Id">Withdraw</a> |
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

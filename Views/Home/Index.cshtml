@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container mt-5">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Customer"))
+        {
+            <!-- কাস্টমার ডিজাইন -->
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-light text-center">
+                    <h3 class="fw-semibold text-success">Welcome, Valued Customer!</h3>
+                </div>
+                <div class="card-body text-center p-4">
+                    <p class="fs-5 text-muted">
+                        Manage your accounts, view transactions, and enjoy seamless banking services.
+                    </p>
+                    @* <img src="~/images/car.jpg" class="img-fluid mb-3" style="max-height:200px;" /> *@
+                </div>
+            </div>
+        }
+        else if (User.IsInRole("Admin"))
+        {
+            <!-- এডমিন ডিজাইন -->
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-dark text-white text-center">
+                    <h3 class="fw-semibold">Admin Dashboard</h3>
+                </div>
+                <div class="card-body text-center p-4">
+                    <p class="fs-5 text-muted">
+                        Monitor all accounts, manage users, and oversee transactions with full control.
+                    </p>
+                    @* <img src="~/images/car.jpg" class="img-fluid mb-3" style="max-height:200px;" /> *@
+                </div>
+            </div>
+        }
+        else
+        {
+            <!-- নতুন ইউজার ডিজাইন (আগে দেওয়া ওয়েলকাম ভিউ) -->
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-light text-center">
+                    <h3 class="fw-semibold text-primary">Welcome to Our Banking System</h3>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <h5 class="fw-medium mb-3">Your financial journey starts here!</h5>
+                    <p class="text-muted fs-5">
+                        Banking is not just about money, it’s about building trust, security, and a brighter future.
+                        Every great journey begins with a single step — and with us, that step is safe and strong.
+                    </p>
+                    <hr class="my-4" />
+                    <p class="fst-italic text-secondary">
+                        "A bank is more than a vault of numbers — it is a partner in your growth."
+                    </p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <!-- লগইন না করা ইউজারের জন্য -->
+        <div class="text-center mt-5">
+            <h3 class="fw-semibold">Welcome to Banking Management System</h3>
+            <p class="text-muted">Please log in to continue.</p>
+        </div>
+    }
+</div>

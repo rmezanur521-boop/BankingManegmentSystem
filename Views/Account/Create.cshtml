@@ -1,0 +1,94 @@
+﻿@model BankingManegmentSystem.ViewModels.AccountCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4>Create New Account</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                    <label asp-for="ConfirmationPassword" class="form-label"></label>
+                    <input asp-for="ConfirmationPassword" type="password" class="form-control" placeholder="Confirm Password" />
+                    <span asp-validation-for="ConfirmationPassword" class="text-danger"></span>
+                </div>
+
+                <hr />
+
+                <h5 class="mb-3">Account Information</h5>
+
+                <!-- Account Number -->
+                <div class="mb-3">
+                    <label asp-for="AccountNumber" class="form-label"></label>
+                    <input asp-for="AccountNumber" class="form-control" placeholder="Enter Account Number" />
+                    <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                </div>
+
+                <!-- Account Name -->
+                <div class="mb-3">
+                    <label asp-for="AccountName" class="form-label"></label>
+                    <input asp-for="AccountName" class="form-control" placeholder="Enter Account Name" />
+                    <span asp-validation-for="AccountName" class="text-danger"></span>
+                </div>
+
+                <!-- Opening Balance -->
+                <div class="mb-3">
+                    <label asp-for="OpeningBalance" class="form-label"></label>
+                    <input asp-for="OpeningBalance" class="form-control" placeholder="Enter Opening Balance" />
+                    <span asp-validation-for="OpeningBalance" class="text-danger"></span>
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label"></label>
+                    <select asp-for="Status" class="form-select"
+                            asp-items="Html.GetEnumSelectList<BankingManegmentSystem.Constants.AccountStatus>()">
+                        <option value="">Select Status</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">
+                        Create Account
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Back to List
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

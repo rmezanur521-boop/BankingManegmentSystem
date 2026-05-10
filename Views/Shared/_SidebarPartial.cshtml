@@ -1,0 +1,177 @@
+﻿@using System.Security.Claims
+@using BankingManegmentSystem.Helper
+@using BankingManegmentSystem.Data
+@inject AppDbContext _context;
+@{
+    string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    var account = await userId.GetUserAccountAsync(_context);
+}
+
+<div class="sidebar bg-light vh-100 p-3 shadow-sm">
+    @if (User.IsInRole("Admin"))
+    {
+
+        <h5 class="text-primary fw-bold mb-4">Admin Panel</h5>
+    }
+    else
+    {
+
+        <h5 class="text-primary fw-bold mb-4">Costumer Panel</h5>
+    }
+
+    <ul class="nav nav-pills flex-column mb-auto">
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a asp-action="AdminDashboard" asp-controller="Account" class="nav-link text-dark sidebar-link">
+                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                </a>
+            </li>
+        }
+        else
+        {
+            @if (account != null)
+            {
+                <li class="nav-item">
+                    <a asp-action="CustomerDashboard" asp-controller="Account" class="nav-link text-dark sidebar-link">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a class="nav-link text-dark sidebar-link" href="/Welcome">Wlcome</a>
+                </li>
+            }
+        }
+        <li>
+            <a class="nav-link text-dark sidebar-link dropdown-toggle"
+               data-bs-toggle="collapse"
+               href="#account"
+               role="button"
+               aria-expanded="false">
+                <i class="bi bi-people me-2"></i> Account
+            </a>
+
+            <div class="collapse ps-3" id="account">
+                <ul class="nav flex-column">
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a asp-controller="Account"
+                               asp-action="Index"
+                               class="nav-link sidebar-sublink">
+                                Account List
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Account"
+                               asp-action="Create"
+                               class="nav-link sidebar-sublink">
+                                Create Account
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        @if (account != null)
+                        {
+                            <li>
+                                <a href="/Account/View/{@account.AccountNumber}"
+                                   class="nav-link sidebar-sublink">
+                                    Account Details
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <span class="text-muted">No account available</span>
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </div>
+        </li>
+
+        <!-- Role Management Dropdown -->
+        @if (User.IsInRole("Customer") || User.IsInRole("Admin"))
+        {
+            <li>
+                <a class="nav-link text-dark sidebar-link dropdown-toggle"
+                   data-bs-toggle="collapse"
+                   href="#userMenu"
+                   role="button"
+                   aria-expanded="false">
+                    <i class="bi bi-people me-2"></i> Transaction
+                </a>
+
+                <div class="collapse ps-3" id="userMenu">
+                    <ul class="nav flex-column">
+                        @if (User.IsInRole("Customer") || User.IsInRole("Admin") || account != null)
+                        {
+                            <li>
+                                <a asp-controller="Account" asp-action="Deposit" 
+                                class="nav-link sidebar-sublink">
+                                    Deposit
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="Withdraw"
+                                class="nav-link sidebar-sublink">
+                                    Withdraw
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Transaction" asp-action="Index"
+                                class="nav-link sidebar-sublink">
+                                    All Transactions
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <span class="text-muted">No account available</span>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </li>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a class="nav-link text-dark sidebar-link dropdown-toggle"
+                   data-bs-toggle="collapse"
+                   href="#roleMenu"
+                   role="button"
+                   aria-expanded="false">
+                    <i class="bi bi-person-badge me-2"></i> Administrative
+                </a>
+
+                <div class="collapse ps-3" id="roleMenu">
+                    <ul class="nav flex-column">
+                        <li>
+                            <a asp-controller="Role" asp-action="List"
+                            class="nav-link sidebar-sublink">
+                                Role List
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Role" asp-action="Create"
+                            class="nav-link sidebar-sublink">
+                                Add Role
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        }
+
+    </ul>
+</div>

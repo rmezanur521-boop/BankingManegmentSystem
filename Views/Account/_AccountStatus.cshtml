@@ -1,0 +1,16 @@
+﻿
+@model AccountStatus
+
+@{
+    string badgeClass = Model switch
+    {
+        AccountStatus.Active => "badge bg-success",
+        AccountStatus.Inactive => "badge bg-secondary",
+        AccountStatus.Pending => "badge bg-warning text-dark",
+        AccountStatus.Suspended => "badge bg-danger",
+        AccountStatus.Blocked => "badge bg-dark",
+        AccountStatus.Deleted => "badge bg-light text-muted",
+        _ => "badge bg-info"
+    };
+    <span class="@badgeClass">@Model</span>
+}

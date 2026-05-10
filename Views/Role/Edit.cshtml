@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Edit Role";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0">Edit Role</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+
+                <input type="hidden" name="id" value="@ViewBag.RoleId" />
+
+                <div class="mb-3">
+                    <label class="form-label">Role Name</label>
+                    <input type="text"
+                           name="roleName"
+                           value="@ViewBag.RoleName"
+                           class="form-control"
+                           required />
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="List" class="btn btn-secondary">
+                        Back
+                    </a>
+
+                    <button type="submit" class="btn btn-warning">
+                        Update
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

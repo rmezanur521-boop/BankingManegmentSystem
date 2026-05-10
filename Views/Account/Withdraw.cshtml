@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Withdraw";
+}
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-lg rounded-3">
+                <div class="card-header bg-secondary text-white text-center border-0">
+                    <h4 class="mb-0  fw-semibold">Withdraw Funds</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Withdraw" asp-controller="Account">
+                        <div class="text-danger mb-3" asp-validation-summary="All"></div>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="mb-3">
+                                <label for="accountNumber" class="form-label fw-medium">Select account</label>
+                                <select class="form-select" asp-items="@ViewBag.Accounts" name="accountNumber">
+                                    <option value="">Select account</option>
+                                </select>
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label for="Amount" class="form-label fw-medium">Amount</label>
+                            <div class="input-group">
+                                <input id="amount" name="amount" class="form-control" placeholder="Enter amount" />
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-secondary shadow-sm btn-lg rounded-2">
+                                <i class="bi bi-currency-dollar"></i> Withdraw Now
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

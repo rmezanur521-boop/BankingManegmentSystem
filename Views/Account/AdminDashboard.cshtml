@@ -1,0 +1,83 @@
+﻿@model AdminDashboardVM
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+
+<h2 class="text-center mb-4 fw-semibold mt-3" >Admin Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="dashboard-card bg-blue shadow">
+            <h5>Total Accounts</h5>
+            <h3>@Model.TotalAccounts</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card bg-green shadow">
+            <h5>Total Transactions</h5>
+            <h3>@Model.TotalTransactions</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card bg-orange shadow">
+            <h5>Total Deposit / Withdraw</h5>
+            <h5>@Model.TotalDeposit / @Model.TotalWithdraw</h5>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card bg-red shadow">
+            <h5>Total Bank Balance</h5>
+            <h3>@Model.TotalBankBalance</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 shadow-lg">
+        <h5 class="p-2">Recent Accounts</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var acc in Model.RecentAccounts)
+                {
+                    <tr>
+                        <td>@acc.AccountNumber</td>
+                        <td>@acc.Balance</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6 shadow-lg">
+        <h5 class="p-2 shadow-lg">Recent Transactions</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in Model.RecentTransactions)
+                {
+                    <tr>
+                        <td>@t.Account?.AccountNumber</td>
+                        <td>@t.Amount</td>
+                        <td>@t.TransactionType</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@model CustomerDashboardVM
+@{
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<h2 class="mb-4">My Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="dashboard-card bg-blue shadow">
+            <h5>My Total Balance</h5>
+            <h3>@Model.MyTotalBalance</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="dashboard-card bg-green shadow">
+            <h5>Total Transactions</h5>
+            <h3>@Model.TotalTransactions</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="dashboard-card bg-orange shadow">
+            <h5>Deposit / Withdraw</h5>
+            <h3>@Model.TotalDepositCount / @Model.TotalWithdrawCount</h3>
+        </div>
+    </div>
+</div>
+
+<h5>Recent Transactions</h5>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model.RecentTransactions)
+        {
+            <tr>
+                <td>@t.Amount</td>
+                <td>@t.TransactionType</td>
+                <td>@t.TransctionDateTime</td>
+            </tr>
+        }
+    </tbody>
+</table>

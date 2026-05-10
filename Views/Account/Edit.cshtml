@@ -1,0 +1,74 @@
+﻿@using BankingManegmentSystem.Constants
+@model BankingManegmentSystem.Models.Account
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 mt-3 ">
+        <div class="card shadow-lg border-0 rounded-5">
+            <div class="card-header bg-light text-center">
+                <h4 class="fw-semibold mb-0">Edit Account</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <!-- AccountName -->
+                    <div class="mb-3">
+                        <label asp-for="AccountName" class="form-label fw-medium"></label>
+                        <input asp-for="AccountName" class="form-control" />
+                        <span asp-validation-for="AccountName" class="text-danger"></span>
+                    </div>
+
+                    <!-- AccountNumber -->
+                    <div class="mb-3">
+                        <label asp-for="AccountNumber" class="form-label fw-medium"></label>
+                        <input asp-for="AccountNumber" class="form-control" />
+                        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                    </div>
+
+                    <!-- Balance -->
+                    <div class="mb-3">
+                        <label asp-for="Balance" class="form-label fw-medium"></label>
+                        <input asp-for="Balance" class="form-control" />
+                        <span asp-validation-for="Balance" class="text-danger"></span>
+                    </div>
+
+                    <!-- UserId -->
+                    <div class="mb-3">
+                        <label asp-for="UserId" class="form-label fw-medium"></label>
+                        <select asp-items="@ViewBag.Users" asp-for="UserId" class="form-select">
+                            <option selected disabled>Select user</option>
+                        </select>
+                        <span asp-validation-for="UserId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="mb-3">
+                        <label asp-for="Status" class="form-label fw-medium"></label>
+                        <select asp-items="Html.GetEnumSelectList<AccountStatus>()" asp-for="Status" class="form-select">
+                            <option selected disabled>Select Status</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-dark btn-lg rounded-2">
+                            <i class="bi bi-check-circle"></i> Edit Account
+                        </button>
+                    </div>
+                </form>
+
+                <a asp-action="Index" class="btn btn-outline-secondary mt-3">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

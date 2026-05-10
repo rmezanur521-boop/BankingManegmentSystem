@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Create Role";
+}
+
+<div class="container mt-4 ">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Create Role</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Create" asp-controller="Role" method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">Role Name</label>
+                    <input type="text"
+                           name="roleName"
+                           class="form-control"
+                           placeholder="Enter role name" required />
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="List" asp-controller="Role"
+                       class="btn btn-secondary">
+                        Back
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        Save Role
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

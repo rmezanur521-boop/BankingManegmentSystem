@@ -1,0 +1,11 @@
+﻿@model TransactionType
+
+@{
+    string badgeClass = Model switch
+    {
+        TransactionType.Deposit => "badge bg-success",
+        TransactionType.Withdraw => "badge bg-warning text-dark",
+                _ => "badge bg-info"
+    };
+    <span class="@badgeClass">@Model</span>
+}
